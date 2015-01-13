@@ -26,4 +26,7 @@ class bind::params (
             "${::bind::confdir}/zones.rfc1918",
         ]
     }
+    elsif $::osfamily == 'RedHat' {
+        $bind_files = ["/etc/named.root.key"]
+    }
 }
