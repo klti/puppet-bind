@@ -18,7 +18,7 @@ define bind::zone (
 ) {
     $cachedir = $bind::cachedir
 
-    if $domain == '' {
+    if $domain == '' or $domain == '.' {
         $_domain = $name
     } else {
         $_domain = $domain
