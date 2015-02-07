@@ -18,7 +18,7 @@ define bind::zone (
 ) {
     $cachedir = $bind::cachedir
 
-    if $domain == '' or $domain == '.' {
+    if $domain == '' {
         $_domain = $name
     } else {
         $_domain = $domain
@@ -47,7 +47,7 @@ define bind::zone (
             require => Package['bind'],
         }
 
-        file { "${cachedir}/${name}/${_domain}":
+        file { "${cachedir}/${name}/${name}":
             ensure  => present,
             owner   => $bind::params::bind_user,
             group   => $bind::params::bind_group,
@@ -63,15 +63,15 @@ define bind::zone (
                     '${_domain}' '${key_directory}'",
                 cwd     => $cachedir,
                 user    => $bind::params::bind_user,
-                creates => "${cachedir}/${name}/${_domain}.signed",
+                creates => "${cachedir}/${name}/${name}.signed",
                 timeout => 0, # crypto is hard
                 require => [
                     File['/usr/local/bin/dnssec-init'],
-                    File["${cachedir}/${name}/${_domain}"]
+                    File["${cachedir}/${name}/${name}"]
                 ],
             }
 
-            file { "${cachedir}/${name}/${_domain}.signed":
+            file { "${cachedir}/${name}/${name}.signed":
                 owner => $bind::params::bind_user,
                 group => $bind::params::bind_group,
                 mode  => '0644',
