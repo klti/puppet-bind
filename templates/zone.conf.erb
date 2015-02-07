@@ -10,9 +10,9 @@ zone "<%= @_domain %>" {
 <%-     else -%>
 	key-directory "<%= @cachedir %>/<%= @name %>";
 <%-     end -%>
-	file "<%= @cachedir %>/<%= @name %>/<%= @_domain %>.signed";
+	file "<%= @cachedir %>/<%= @name %>/<%= @name %>.signed";
 <%-   else -%>
-	file "<%= @cachedir %>/<%= @name %>/<%= @_domain %>";
+	file "<%= @cachedir %>/<%= @name %>/<%= @name %>";
 <%-   end -%>
 <%-   if (@zone_type != 'hint') -%>
 	notify <%= @ns_notify ? 'yes' : 'no' %>;
