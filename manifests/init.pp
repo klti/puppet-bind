@@ -27,6 +27,13 @@ class bind (
         name   => $::bind::params::bind_package,
     }
 
+    if $::bind::params::nsupdate_package {
+        package { 'nsupdate':
+            ensure => present,
+            name   => $::bind::params::nsupdate_package,
+        }
+    }
+    
     file { $::bind::params::bind_files:
         ensure  => present,
     }
